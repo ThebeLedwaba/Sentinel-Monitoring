@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SentinelMonitoring.Api", "SentinelMonitoring.Api\SentinelMonitoring.Api.csproj", "{EAF5FFDE-787E-4431-8E22-F73ECDA5D118}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SentinelMonitoring.Core", "SentinelMonitoring.Core\SentinelMonitoring.Core.csproj", "{BBCDC118-A736-4B8F-8246-8489DF2AD09D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SentinelMonitoring.Infrastructure", "SentinelMonitoring.Infrastructure\SentinelMonitoring.Infrastructure.csproj", "{C6F79280-3B5A-47C8-8456-B3B24B0A95D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SentinelMonitoring.Simulator", "SentinelMonitoring.Simulator\SentinelMonitoring.Simulator.csproj", "{D391DE5E-58AF-4119-AF22-E9CA12781E5A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EAF5FFDE-787E-4431-8E22-F73ECDA5D118}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAF5FFDE-787E-4431-8E22-F73ECDA5D118}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAF5FFDE-787E-4431-8E22-F73ECDA5D118}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAF5FFDE-787E-4431-8E22-F73ECDA5D118}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBCDC118-A736-4B8F-8246-8489DF2AD09D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBCDC118-A736-4B8F-8246-8489DF2AD09D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBCDC118-A736-4B8F-8246-8489DF2AD09D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBCDC118-A736-4B8F-8246-8489DF2AD09D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6F79280-3B5A-47C8-8456-B3B24B0A95D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6F79280-3B5A-47C8-8456-B3B24B0A95D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6F79280-3B5A-47C8-8456-B3B24B0A95D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6F79280-3B5A-47C8-8456-B3B24B0A95D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D391DE5E-58AF-4119-AF22-E9CA12781E5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D391DE5E-58AF-4119-AF22-E9CA12781E5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D391DE5E-58AF-4119-AF22-E9CA12781E5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D391DE5E-58AF-4119-AF22-E9CA12781E5A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

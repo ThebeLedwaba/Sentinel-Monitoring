@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentinel Monitoring Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --accent: #38bdf8;
+            --warning: #fbbf24;
+            --critical: #ef4444;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        .status-normal { background: #059669; }
+        .status-warning { background: var(--warning); color: #000; }
+        .status-critical { background: var(--critical); }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Sentinel Monitoring Hub</h1>
+        <div id="connection-status">Connecting...</div>
+    </div>
+
+    <div class="dashboard-grid">
+        <div class="card">
+            <h3>Live Temperature</h3>
+            <div id="temp-value" class="metric-value">--°C</div>
+            <span id="temp-status" class="status-badge status-normal">Normal</span>
+            <canvas id="tempChart"></canvas>
+        </div>
+        <div class="card">
+            <h3>Pressure</h3>
+            <div id="pressure-value" class="metric-value">-- hPa</div>
+        </div>
+        <div class="card">
+            <h3>Humidity</h3>
+            <div id="humidity-value" class="metric-value">--%</div>
+        </div>
+    </div>
+
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/telemetryHub")
+            .build();
+
+        const ctx = document.getElementById('tempChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Temperature',
+                    data: [],
+                    borderColor: '#38bdf8',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: { 
+                    y: { beginAtZero: false, grid: { color: '#334155' } },
+                    x: { grid: { display: false } }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        connection.on("ReceiveTelemetry", (data) => {
+            document.getElementById('temp-value').innerText = `${data.temperature.toFixed(1)}°C`;
+            document.getElementById('pressure-value').innerText = `${data.pressure.toFixed(1)} hPa`;
+            document.getElementById('humidity-value').innerText = `${data.humidity.toFixed(1)}%`;
+            
+            const statusEl = document.getElementById('temp-status');
+            statusEl.innerText = data.status;
+            statusEl.className = `status-badge status-${data.status.toLowerCase()}`;
+
+            // Update Chart
+            const now = new Date().toLocaleTimeString();
+            chart.data.labels.push(now);
+            chart.data.datasets[0].data.push(data.temperature);
+            if (chart.data.labels.length > 20) {
+                chart.data.labels.shift();
+                chart.data.datasets[0].data.shift();
+            }
+            chart.update();
+        });
+
+        connection.start()
+            .then(() => document.getElementById('connection-status').innerText = 'Connected')
+            .catch(err => console.error(err));
+    </script>
+</body>
+</html>
